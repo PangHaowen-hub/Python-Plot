@@ -1,19 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
 plt.rcParams["font.family"] = "Times New Roman"
 # 数据
 np.random.seed(123)
-group1 = [1, 9, 9, 2]
-group2 = [7, 1, 1, 7]
-group3 = [4, 2, 3, 1]
-group4 = [29, 13, 1, 1]
-group5 = [42, 8, 2, 5]
-group6 = [3, 5, 2]
-group7 = [4, 4]
+group1 = [4, 12, 13, 2, 2]  # Classification
+group2 = [8, 5, 3, 7]  # Segmentation
+group3 = [6, 2, 3, 1]  # Other tasks
+group4 = [47, 15, 2, 1]  # MRI
+group5 = [57, 12, 2, 5]  # CT
+group6 = [3, 3, 2]  # X-ray
+group7 = [4, 2]  # PET
+group8 = [1]  # US
+group9 = [7, 9]  # NC-CE
 
-groups = [group1, group2, group3, group4, group5, group6, group7]
-group_names = list('ABCDEFG')
-group_colors = ['#ff706d', '#7baf06', '#01bfc5', '#cb7bf6', '#ff706d', '#7baf06', '#01bfc5']
+groups = [group1, group2, group3, group4, group5, group6, group7, group8, group9]
+group_names = list('ABCDEFGHI')
+group_colors = ['#ff706d', '#7baf06', '#01bfc5', '#cb7bf6', '#ff706d', '#7baf06', '#01bfc5', '#cb7bf6', '#7baf06']
 
 # 画图
 fig = plt.figure(figsize=(6, 6), dpi=300, facecolor='white')
@@ -66,12 +69,14 @@ def scale_value(ax, bottom, theta, scale_lim):
 
 s_list = []
 g_no = 1
-label = ['MRI', 'CT', 'X-ray', 'US',
+label = ['MRI', 'CT', 'X-ray', 'US', 'OCT',
          'MRI', 'CT', 'X-ray', 'US',
          'MRI', 'CT', 'X-ray', 'US',
          'MRI', 'CT', 'PET', 'US',
-         'MRI', 'CT', 'X-ray', 'PET',
-         'MRI', 'CT', 'X-ray',
+         'MRI', 'CBCT', 'X-ray', 'PET',
+         'CT', 'X-ray', 'Others',
+         'MRI', 'CT',
+         'CT',
          'MRI', 'CT',
          ]
 for t, r in zip(theta, radii):
@@ -85,7 +90,7 @@ for t, r in zip(theta, radii):
         t2 = np.rad2deg(t)
         # 标出每根柱的名称
         ax.text(t, r + bottom + scale_major * 0.6,
-                label[g_no-1],
+                label[g_no - 1],
                 fontsize=12,
                 rotation=90 - t2 if t < np.pi else 270 - t2,
                 rotation_mode='anchor',
